@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "videoCall": {
+    "comet-chat-angular": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "docs/videoCall",
+            "outputPath": "docs/comet-chat-angular",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -62,18 +62,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "videoCall:build"
+            "browserTarget": "comet-chat-angular:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "videoCall:build:production"
+              "browserTarget": "comet-chat-angular:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "videoCall:build"
+            "browserTarget": "comet-chat-angular:build"
           }
         },
         "test": {
@@ -110,15 +110,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "videoCall:serve"
+            "devServerTarget": "comet-chat-angular:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "videoCall:serve:production"
+              "devServerTarget": "comet-chat-angular:serve:production"
             }
           }
         }
       }
-    }},
-  "defaultProject": "videoCall"
+    }
+  },
+  "defaultProject": "comet-chat-angular"
 }
