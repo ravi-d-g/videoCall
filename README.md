@@ -44,3 +44,4 @@ Questions about running the demo? [Open an issue](https://github.com/maciejtrede
 "# myVidChat" 
 "# videoCall" 
 ng build --prod –base-href https://developerravi08.github.io/videoCall/
+ng build --prod --base-href "https://developerravi08.github.io/videoCall/"
