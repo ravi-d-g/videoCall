@@ -6,10 +6,10 @@ import { Observable, ReplaySubject, Subject, from } from 'rxjs';
 import { filter, flatMap, tap } from 'rxjs/operators';
 
 @Injectable({
- providedIn: 'root'
+  providedIn: 'root'
 })
 export class CometChatService {
- 
+
   private initialized: Subject<boolean> = new ReplaySubject<boolean>();
   private incomingCall$: Subject<any> = new ReplaySubject();
   private outgoingCall$: Subject<any> = new ReplaySubject();
@@ -24,7 +24,7 @@ export class CometChatService {
     }, error => {
       console.log('Initialization error: ' + error);
     });
-    
+
     this.ongoingCall$.pipe(filter(call => !!call)).subscribe(call => {
       CometChat.startCall(
         call.sessionId,
@@ -38,17 +38,17 @@ export class CometChatService {
       );
     });
   }
- 
+
   private retrieveUsers(): void {
     new CometChat.UsersRequestBuilder().setLimit(20).build().fetchNext().then(response => {
       this.users$.next(response);
     });
   }
- 
+
   public login(uid: string): Observable<any> {
     uid = uid.toLowerCase();
     return this.initialized.pipe(filter(v => v), flatMap(_ => {
-      console.log('uid',uid, environment.apiKey)
+      console.log('uid', uid, environment.apiKey)
       return from(CometChat.login(uid, environment.apiKey)).pipe(tap(_ => {
         this.retrieveUsers();
         this.signedIn = uid;
@@ -72,7 +72,7 @@ export class CometChatService {
             }
           })
         );
-  
+
         CometChat.addUserListener(
           'USER_LISTENER_ID',
           //@ts-ignore
@@ -84,23 +84,25 @@ export class CometChatService {
       }));
     }));
   }
- 
+
   public getSignedIn(): string {
+    this.signedIn = localStorage.getItem("uid");
+ 
     return this.signedIn;
   }
- 
+
   public getIncomingCalls(): Observable<any> {
     return this.incomingCall$;
   }
- 
+
   public getOutgoingCalls(): Observable<any> {
     return this.outgoingCall$;
   }
- 
+
   public getOngoingCalls(): Observable<any> {
     return this.ongoingCall$;
   }
- 
+
   public startVoiceCall(receiverID: string): Observable<any> {
     if (!this.signedIn) {
       throw new Error('Not logged in.');
@@ -108,10 +110,10 @@ export class CometChatService {
     const call = new CometChat.Call(receiverID, CometChat.CALL_TYPE.AUDIO, CometChat.RECEIVER_TYPE.USER);
     return from(CometChat.initiateCall(call)).pipe(tap(call => this.outgoingCall$.next(call)));
   }
- 
+
   public startVideoCall(receiverID: string): Observable<any> {
     if (!this.signedIn) {
-     throw new Error('Not logged in.');
+      throw new Error('Not logged in.');
     }
     const call = new CometChat.Call(receiverID, CometChat.CALL_TYPE.VIDEO, CometChat.RECEIVER_TYPE.USER);
     return from(CometChat.initiateCall(call));

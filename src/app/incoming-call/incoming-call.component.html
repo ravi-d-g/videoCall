@@ -1,6 +1,11 @@
-
-<h1>Call from {{call.callInitiator.name}}</h1>
-<div><img [src]="call.callInitiator.avatar" /></div>
-<div>
-    <span class="positive" (click)="accept()">Accept</span><span class="negative" (click)="reject()">Reject</span>
+<div class="card text-center mx-auto" style="width: 18rem;">
+    <img [src]="call.callInitiator.avatar" class="card-img-top mx-auto" alt="...">
+    <div class="card-body text-center">
+        <h4 class="card-title"> {{call.callInitiator.name}}</h4>
+        <p class="card-text">Incoming call</p>
+        <button type="button" class="btn btn-block btn-success  btn-sm" (click)="accept()">
+            <i class="fas fa-phone-alt"></i> Accept</button>
+        <button type="button" class="btn btn-block btn-danger  btn-sm" (click)="reject()">
+            <i class="fas fa-phone-slash"></i> Reject</button>
+    </div>
 </div>

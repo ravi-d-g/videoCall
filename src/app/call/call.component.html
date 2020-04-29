@@ -2,26 +2,40 @@
     <div class="row">
 
 
-        <div class="col-md-5">
-
-            <ul class="contacts">
-                <h3>User List</h3>
-                <li *ngFor="let contact of (contacts | async)" class="border-bottom">
-                    {{contact.name}}:
-                    <span class="badge badge-pill badge-success" *ngIf="contact.status=='online'"> &nbsp;</span>
-                    <span class="badge badge-pill badge-danger" *ngIf="contact.status!='online'"> &nbsp;
-                    </span>
+        <div class="col-md-5 ">
 
 
 
-                    <button type="button" class="btn btn-primary" *ngIf="contact.status=='online'"
-                        (click)="voiceCall(contact.uid)"><i class="fas fa-phone-square-alt"></i> call</button>
-                    &nbsp;
-                    <button type="button" class="btn btn-success" *ngIf="contact.status=='online'"
-                        (click)="videoCall(contact.uid)"><i class="fas fa-video"></i> call</button>
+            <div class="card mx-auto">
+                <div class="card-body ">
+                    <h5 class="card-title text-center">User List</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item pl-0 pr-0" *ngFor="let contact of (contacts | async)">
+                            <span>
+                                <span class="badge badge-pill badge-success" *ngIf="contact.status=='online'">
+                                    &nbsp;</span>
+                                <span class="badge badge-pill badge-danger" *ngIf="contact.status!='online'"> &nbsp;
+                                </span>
+                                {{contact.name}} &nbsp; &nbsp;
+                            </span>
 
-                </li>
-            </ul>
+                            <span>
+                                <button type="button" class="btn btn-primary btn-sm" *ngIf="contact.status=='online'"
+                                    (click)="voiceCall(contact.uid)"><i class="fas fa-phone-square-alt"></i>
+                                    call</button>
+                                &nbsp;
+                                <button type="button" class="btn btn-success btn-sm" *ngIf="contact.status=='online'"
+                                    (click)="videoCall(contact.uid)"><i class="fas fa-video"></i> call</button>
+                            </span>
+
+
+
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+
         </div>
         <div class="col-md-7">
             <app-outgoing-call *ngIf="outgoingCall$ | async as outgoingCall" [call]="outgoingCall"></app-outgoing-call>
